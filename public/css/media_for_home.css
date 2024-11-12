@@ -1,0 +1,29 @@
+@media (max-width:768px) {
+
+    body{
+        padding: 0rem 0rem;
+    }
+
+    .mySwiper{
+        width: 98%;
+    }
+    
+    .mySwiper .slide .box .content{
+        width: 100%;
+    }
+}
+
+
+
+
+@media (max-width:350px) {
+
+    body{
+        padding: 0rem 0rem;
+    }
+
+    .mySwiper .slide .box .content{
+        top: 45%;
+    }
+    
+}

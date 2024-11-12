@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Oswald", sans-serif;
+    transition: 1s ease-in-out;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+
+html{
+    font-size: 62.5%;
+}
+
+html::-webkit-scrollbar-track{
+    width:0.5rem;
+    background:#252525;
+}
+
+
+
+html::-webkit-scrollbar{
+    width: 0.5rem;
+    background-color: #252525;
+}
+
+
+
+html::-webkit-scrollbar-thumb{
+    background: #ff5700;
+    /* width: 1rem; */
+    border-radius: 1rem;
+}
+
+body{
+    background-color: #252525;
+}
+
+
+.header{
+    position: fixed;
+}
+
+
+.navbar{
+    display: flex;
+    background-color: rgba(0, 0, 0,0.9);
+    padding: 1rem 7%;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #000000;
+    position: fixed;
+    top: 0rem;
+    left: 0;
+    right:0;
+    z-index: 10000;
+ 
+}
+
+.navbar h3{
+    font-size: 3.5rem;
+    font-family: "Oswald", sans-serif;
+}
+
+.navbar h3 span{
+    color:#ff5700;
+}
+
+.navbar .nav_icon{
+    font-size: 2.5rem;
+    color: #fff;  
+}
+
+.navbar .nav_icon a{
+    margin: 0rem 1rem;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar .nav_icon a:hover{
+    color: #ff5700;
+}
+
+
+.comic_details{
+    border:0.2rem solid rgb(0, 0, 0);
+    margin-top:7rem;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    border-radius: 1rem;
+    z-index: -1;
+    
+}
+
+.comic_details img{
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    border-radius: 1rem;
+}
+
+.comic_details .details{
+    position:absolute;
+    bottom:-15%;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    width: 99%;
+    text-align: center;
+    background-color:rgba(25,25,25);
+    /* border-radius: 1rem; */
+    border-top-left-radius: 5rem;
+    border-top-right-radius: 5rem;
+}
+
+.comic_details .details h3{
+    font-size: 3.5rem;
+    color: #ff5700;
+    margin-bottom: 1rem;
+}
+
+.comic_details .details .type{
+    /* width: 5rem; */
+    display: inline-block;
+    /* width: 100%; */
+    padding: 1rem;
+    color: #fff;
+    font-size: 1.5rem;
+    background-color: #ff5700;
+    border-radius: 1rem;
+    border: 0.1rem solid #000;
+    margin: auto;
+    margin-bottom: 1rem;
+
+
+}
+
+.comic_details .details .description{
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.comic_details .details .total_pdf{
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.ep{
+    width: 100%;
+    padding: 1rem 1rem;
+    margin-top: 7rem;
+
+}
+
+.ep .box{
+    width: 100%;
+    background-color:#000;
+    color: #fff;
+    font-size: 2rem;
+
+}
+
+.ep .box .container{
+    display: flex;
+    background-color: #131212;
+    box-shadow: 0rem 0rem 0.1rem 0.1rem #000;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+}
+
+.ep .box .container .img_container{
+    width: 10rem;
+    margin: 0rem 2rem 0rem 0rem;
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+.img_container img {
+    display: block;
+    height: 100%; /* Make sure the image's height matches the container */
+    width: 100%; /* Keep the image's aspect ratio */
+    object-fit: cover; /* Ensure the image covers the available space */
+    border-radius: 1rem;
+}
+
+.ep .box .container .img_container .number{
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background-color:#ff5700;
+    color: #000;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    padding-left: 0.6rem;
+    padding-top: 0.2rem;
+}
+
+.ep .box .container .number{
+    position: absolute;
+    right: 0rem;
+    bottom: 0.1rem;
+    color: #000000;
+    background:#ff5700;
+    font-size: 1rem;
+}
+
+.ep .box .container p{
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* media */
+@media (max-width:525px) {
+
+    
+
+    
+}

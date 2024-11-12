@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+/* font-family: "Anton", sans-serif;
+
+font-family: "Roboto Mono", monospace;
+
+*/
+body{
+  background: rgb(18,16,75);
+background: linear-gradient(90deg, rgba(18,16,75,1) 0%, rgba(7,7,7,1) 75%);
+}
+
+*{
+  margin:0;
+  padding:0;
+  border: none;
+  box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
+  transition: 1s ease-in-out;
+
+}
+
+html{
+  font-size: 62.5%;
+}
+
+.header{
+  width: 100%;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(90deg, rgb(23, 22, 44) 0%, rgba(7,7,7,1) 100%);
+  padding:1rem 7%;
+  position: relative;
+  box-shadow: 0rem 0rem 1rem 0.1rem #000;
+}
+
+.header .navbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header #site_logo{
+  width: 5rem;
+  
+}
+
+.header .navbar .nav_icon{
+  display: flex;
+  gap: 2rem;
+}
+
+.header .navbar .nav_icon .icon{
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.header .navbar .search_box{
+  display: none;
+  width: 100%;
+  background-color: #252525;
+  padding: 1rem 1rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+}
+
+.header .navbar .search_box #search{
+  outline: none;
+  background-color: transparent;
+  width: 100%;
+  color: #fff;
+  font-family: "Roboto Mono", monospace;
+}
+
+.header .navbar .search_box #close_search_box_button{
+  font-size: 2.5rem;
+  color: cyan;
+}
+
+.header .navbar .search_box_box_button #search::-webkit-search-cancel-button{
+  display: none;
+}
+
+.header .display_search_result{
+  width: 80%;
+  position: absolute;
+  top:101%;
+  right: 50%;left: -100%;
+  transform: translate(-50%,0);
+  background-color: #252525;
+  box-shadow: 0rem 0rem 1rem 0.1rem #000;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.header .display_search_result .search_content{
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #fff;
+  /* background-color: #1b1b1b; */
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  
+}
+
+
+.header .display_search_result .search_content i{
+  margin-right: 1rem;
+}
+
+.header .display_search_result .search_content p{
+  white-space: nowrap;    
+  overflow: hidden;       
+  text-overflow: ellipsis; 
+  width: 100%;
+}
+
+.comic .title{
+  width: 100%;
+  background-color: #000;
+  color: cyan;
+  font-size: 3rem;
+  
+}
+
+
+.mySwiper{
+  width: 90%;
+  height: 50rem;
+  display:block;
+  margin: 0rem auto;
+  border-radius: 1rem;
+}
+
+.mySwiper .slide{
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+}
+
+.mySwiper .slide .box{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.mySwiper .slide .box img{
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  border-radius: 1rem;
+
+}
+
+.mySwiper .slide .box .content{
+  position: absolute;
+  left:1rem;
+  top:50%;
+  font-family: "Anton", sans-serif;
+  text-align: center;
+  width: 50%;
+  /* background-color:rgb(0, 0, 0,0.3); */
+}
+
+.mySwiper .slide .box .content h3{
+  font-size: 4rem;
+  color:cyan;
+  font-weight: bolder;
+  text-shadow: 0.5rem 0.5rem  0.5rem #000000;
+  font-family: "Anton", sans-serif;
+
+
+}
+.mySwiper .slide .box .content p{
+  font-size: 2rem;
+  color: rgb(255, 255, 255);
+  margin: 1rem 0rem;
+  text-shadow: 0.5rem 0.5rem  0.5rem #000000;
+}
+
+.mySwiper .slide .box .content p span{
+  color: cyan;
+}
+
+.mySwiper .slide .box .content a{
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: cyan;
+  background: rgb(18,16,75);
+  background: linear-gradient(90deg, rgba(18,16,75,1) 0%, rgba(7,7,7,1) 75%);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin:1rem 0rem;
+}

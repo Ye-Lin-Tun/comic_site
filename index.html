@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comic</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/media_for_home.css" />
+  <!-- <link rel="stylesheet" href="/css/media_for_home.css" /> -->
+
+  <base href="/">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+
+
+</head>
+
+<body>
+  <header class="header">
+
+    <nav class="navbar">
+      <img src="/img/logo.png" alt="PaRaPite" id="site_logo">
+
+      <!-- search box -->
+      <div class="search_box">
+        <input type="search" name="search" id="search" placeholder="Search comic...">
+        <i class="fas fa-times" id="close_search_box_button"></i>
+      </div>
+
+      <div class="nav_icon">
+        <i class="fas fa-search icon" id="active_search_box_button"></i>
+        <a href="#" class="fas fa-user icon"></a>
+      </div>
+    </nav>
+
+    <div class="display_search_result">
+      <a href="#" class="search_content">
+        <i class="fas fa-share"></i>
+        <p>Avengers!</p>
+      </a>
+      <a href="#" class="search_content">
+        <i class="fas fa-share"></i>
+        <p>Avengers!</p>
+      </a>
+      <a href="#" class="search_content">
+        <i class="fas fa-share"></i>
+        <p>Avengers!</p>
+      </a>
+      <a href="#" class="search_content">
+        <i class="fas fa-share"></i>
+        <p>Avengers!</p>
+      </a>
+      <a href="#" class="search_content">
+        <i class="fas fa-share"></i>
+        <p>Avengers! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis doloribus animi dolore perferendis
+          cum esse accusamus, reprehenderit totam quam tempora!</p>
+      </a>
+    </div>
+  </header>
+
+
+  <swiper-container class="mySwiper" pagination="true" autoplay="true" autoplay-delay="5000">
+    <swiper-slide class="slide">
+      <div class="box">
+        <img src="/img/slider4.jpg" alt="">
+        <div class="content">
+          <h3>Earn with Us</h3>
+          <p>Link your telegram channel with our bots and earn like boss,get paid in MMK </p>
+          <a href="https://t.me/Ye_lin_tun_x_C">Contact Me</a>
+        </div>
+      </div>
+    </swiper-slide> 
+
+    <swiper-slide class="slide">
+      <div class="box">
+        <img src="/img/slider2.jpg" alt="">
+        <div class="content">
+          <h3>Latest Comics</h3>
+          <p>Read latest comics in <span>Burmese</span> language,Absolutely for free and heigh quality😉</p>
+          <a href="#">Explore more</a>
+        </div>
+      </div>
+    </swiper-slide>
+
+    <swiper-slide class="slide">
+      <div class="box">
+        <img src="/img/blog.jpg" alt="">
+        <div class="content">
+          <h3>M V B</h3>
+          <p><span>Most valuable Blog,</span>Read valuable and heigh level content for free and single click</p>
+          <a href="#">Explore more</a>
+        </div>
+      </div>
+    </swiper-slide>
+    
+    
+  </swiper-container>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+  <script src="/js/index.js"></script>
+</body>
+
+</html>
