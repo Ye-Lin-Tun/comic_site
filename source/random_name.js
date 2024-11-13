@@ -8,13 +8,16 @@ function get_name(total_char) {
     return final_random_name;
 }
 
-async function unique_name(comic_name_collection) {
+async function unique_id(comic_name_collection) {
     while (true) {
-        let temp_comic_id = get_name(8);
-        let check = await comic_name_collection.find({ comic_id: temp_comic_id });
-        if (check[0] == undefined) {
-            return temp_comic_id
+        try{
+            let temp_comic_id = get_name(8);
+            let check = await comic_name_collection.find({ comic_id: temp_comic_id });
+            if (check[0] == undefined) {
+                return temp_comic_id
+            }
         }
+        catch(err){}
     }
 }
 
@@ -34,4 +37,4 @@ async function unique_pdf_id(comic_pdf_collection) {
     }
 }
 
-module.exports.random_name = { get_name, unique_name, unique_pdf_id }
+module.exports.random_name = { get_name, unique_id, unique_pdf_id }

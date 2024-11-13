@@ -1,0 +1,125 @@
+body {
+    background: rgb(18, 16, 75);
+    background: linear-gradient(90deg, rgba(18, 16, 75, 1) 0%, rgba(7, 7, 7, 1) 75%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+    font-family: "Roboto Mono", monospace;
+    transition: 1s ease-in-out;
+
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.comic_btn{
+    width: 15rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: cyan;
+    border-radius: 1rem;
+    background-color: #000;
+    cursor: pointer;
+}
+
+.btn{
+    width: 15rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: cyan;
+    border-radius: 1rem;
+    background-color: #000;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.input{
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: #000;
+    border-radius: 1rem;
+    margin: 0.5rem 0rem;
+}
+
+.new_comic{
+    width: 95%;
+    text-align: center;
+    margin-top: 5rem;
+    background-color: #252525;
+    border-radius: 1rem;
+    border-top-left-radius: 5rem;
+    border-top-right-radius: 5rem;
+    margin-right: auto;margin-left: auto;
+    padding: 1rem;
+    box-shadow: 0.1rem 0.1rem 1rem 0.1rem #000;
+
+}
+
+#thumbnail{
+    width: 80%;
+    background-color: #000;
+    display: block;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+
+}
+
+.new_comic h3{
+    font-size: 3rem;
+    color: #fff;
+    margin: 0.5rem;
+}
+
+.new_comic_form{
+    width: 75%;
+    display: block;
+    margin: 1rem auto;
+    display: none;
+}
+
+.active_new_comic_form{
+    display: block;
+}
+
+.pop_up{
+    width:95%;
+    position: absolute;
+    top:-110%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%,0);
+    background-color: #000;
+    color: #fff;
+    border-radius: 1rem;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0rem 0rem 0.1rem 0.1rem #fff;
+}
+
+.pop_up h3{
+    font-size: 3rem;
+    color: cyan;
+}
+
+.pop_up p{
+    font-size: 2rem;
+    color: #fff;
+}
+.pop_up .btn{
+    display: block;
+    width: 10rem;
+    background-color: #252525;
+    margin: 0rem auto;
+}
+
+
+

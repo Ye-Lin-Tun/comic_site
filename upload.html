@@ -6,67 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>upload_update</title>
 
-    <link rel="stylesheet" href="/css/form_help.css">
+    <link rel="stylesheet" href="/css/upload.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
     
-    <div class="new_comic comic">
-        <p>To create new comic click on create <b>New Comic</b> and fill the form.</p>
-        <button id="new_comic_button" class="btn">New Comic</button>
-    </div>
+    <div class="new_comic">
+        <h3>Create new comic here!</h3>
+        <button class="comic_btn" id="active_new_comic_form">Create Now</button>
 
-    <div class="upload_comic comic">
-        <p>To create upload a pdf click on upload <b>New Comic</b> and fill the form.</p>
-        <button id="upload_comic" class="btn">Upload</button>
-    </div>
+        <form id="new_comic_form" class="new_comic_form">
+            <input type="text" name="name" id="name" class="input" placeholder="Comic name ...">
+            <input type="text" name="author" id="author" class="input" placeholder="Author name ...">
+            <input type="text" name="artist" id="artist" class="input" placeholder="Artist name ...">
+            <input type="text" name="gener" id="gener" class="input" placeholder="Geners ...">
+            <input type="text" name="release" id="release" class="input" placeholder="Release year ...">
 
-    <form class="new_comic_input_box" id="new_comic_form">
-        <h3>Add new Comic</h3>
-        <input type="text" name="name" id="name" placeholder="Name of comic" class="input">
+            <!-- <input type="file" name="thubmnail" id="thubmnail" placeholder="Choice a file for thubmnail" class="input> -->
 
-        <input type="text" name="type" id="type" placeholder="Type of comic format eg:Action/Romance" class="input">
+            <input type="file" name="thumbnail" id="thumbnail">
 
-        <textarea name="description" id="description" class="textarea" placeholder="Give a description for comic"></textarea>
-
-        <input type="file" name="thubmnail" id="file" class="input"  >
-        
-        <button class="btn" id="sumbit_new_comic">Submit</button>
-        <i class="fas fa-times" id="new_form_close_button"></i>
-    </form>
-
-    <div class="result_show_box">
-         
-    </div>
-
-    <form  class="upload_pdf check_comic_id_form" id="upload_pdf" >
-        <input type="text" name="comic_id" id="comic_id" placeholder="Enter comic's id" required>
-        
-        <input type="submit" value="Enter" class="btn" id="check_upload_pdf_button">
-
-        <i class="fas fa-times" id="upload_pdf_close_btn"></i>
-    </form>
-
-
-    <div class="upload_file" id="upload_file">
-        <h2 id="comic_name">.....</h2>
-        <form action="" id="file_form">
-            <input type="file" name="pdf" id="pdf">
-            <label id="l1">
-                <input type="radio" name="status" id="ongoing" value="ongoing">
-                Ongoing
-            </label>
-            <label id="l2">
-                <input type="radio" name="status" id="end" value="end">End
-            </label>
-
-            <input type="submit" value="Upload" id="submit_file">;
+            <input type="submit" value="Create!" id="submit_new_comic_form" class="btn">
         </form>
-        <i class="fas fa-times" id="close_file_upload_btn"></i>
     </div>
 
-
-    <script src="/js/form_help.js"></script>
-    <script src="/js/upload_pdf.js"></script>
+    <div class="pop_up">
+        <h3>Comic created!</h3>
+        <p>Comic has been created! 34342343 is the comic_id and use it to upload episode.Dont need to remember it visit <a href="/admin/all">here</a>if u forget it!!!!</p>
+        <a href="/yawainaing778/upload" class="btn">Back</a>
+    </div>
+   
+    <script src="/js/upload_fun_handler.js"></script>
 </body>
 </html>
