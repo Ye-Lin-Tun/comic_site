@@ -12,30 +12,30 @@ const AdmZip = require('adm-zip');
 // setting mongodb 
 // chA1ueDN
 
-const uri = "mongodb://localhost:27017";
+// const uri = "mongodb://localhost:27017";
 
-const client = new MongoClient(uri);
-
-
-// const uri =
-//   "mongodb+srv://Geek:Wu2wm5ltnipo3FcP@chatbot.rm39fbb.mongodb.net/?retryWrites=true&w=majority&appName=chatbot";
-
-// // Create a new MongoClient
-// const client = new MongoClient(uri, {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   },
-// });
+// const client = new MongoClient(uri);
 
 
-client.connect().then((val) => {
-  console.log("connected to 127.0.0.1:27017");
-}).catch((err) => {
-  console.log("Momgodb error! fail to connected", err);
-  exit();
-})
+const uri =
+  "mongodb+srv://Geek:Wu2wm5ltnipo3FcP@chatbot.rm39fbb.mongodb.net/?retryWrites=true&w=majority&appName=chatbot";
+
+// Create a new MongoClient
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+
+// client.connect().then((val) => {
+//   console.log("connected to 127.0.0.1:27017");
+// }).catch((err) => {
+//   console.log("Momgodb error! fail to connected", err);
+//   exit();
+// })
 
 // Connect to the MongoDB server
 db = client.db("comic_data"); // Assign the database instance
@@ -188,6 +188,8 @@ app.post("/new_comic", async (req, res) => {
       });
     });
 
+    let thumbnail_id = filename;
+
     // adding all data to database
     /*
     1. we need a comic_id
@@ -196,19 +198,21 @@ app.post("/new_comic", async (req, res) => {
     */
 
     // getting unique comic_id
-    let comic_id = await random_name.unique_id(comic_name_collection);
+    let comic_id = await random_name.unique_folder_id(comic_name_collection);
     let data = {
       comic_name,
       comic_id,
+      thumbnail_id,
       author,
       artist,
       genres,
       release_year,
       views:0,
-      total_episode:0
+      total_episode:0,
+      episode_id:[]
     }
 
-    let dataBaseStatus = await comic_name_collection.insertOne({data});
+    let dataBaseStatus = await comic_name_collection.insertOne(data);
     if(!dataBaseStatus.insertedId){
       throw new Error("file upload error")
     }
@@ -228,6 +232,121 @@ app.post("/new_comic", async (req, res) => {
       }
     }
     return res.json({ status: 400, msg: err.message });
+  }
+})
+
+app.post("/admin/comic_details",async(req,res)=>{
+  try{
+    let comic_id = req.body.comic_id;
+    let access  = req.body.access;
+    
+    comic_id = comic_id.trim()
+
+    let comic_details = await comic_name_collection.find({comic_id}).toArray();
+    console.log(comic_details);
+    if(comic_details.length<1){
+      throw new Error("Comic not found!");
+    }
+
+    if(access=="existance"){
+      res.json({status:200,comic_id:comic_id});
+    }
+
+  }
+  catch(err){
+    res.json({status:400,msg:err.message});
+  }
+})
+
+app.post("/admin/upload_zip",async(req,res)=>{
+  let unique_folder_id;
+  let filename;
+  try{
+    let comic_id = req.body.comic_id;
+    comic_id = comic_id.trim();
+
+    // checking comic_id
+
+    let check_comic_id  = await comic_name_collection.find({comic_id}).toArray();
+    if(check_comic_id.length<1){
+      return res.json({status:400,msg:"Comic not found!"});
+    }
+
+    // getting unquire folder_name;
+
+    filename = await random_name.get_name(8)+".rar"
+    unique_folder_id = await random_name.unique_folder_id(comic_folder_collection);
+
+
+    let zip = req.files.zip;
+    if(zip.mimetype!=="application/x-zip-compressed"){
+      return res.json({status:400,msg:"Invalid file type.File must be a zip!"});
+    }
+
+    await new Promise((resolve, reject) => {
+      zip.mv(`./data/${filename}`, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log("zip uploaded!");
+          resolve();
+        }
+      });
+    });
+
+    const unzip = new AdmZip(`./data/${filename}`);
+    unzip.extractAllTo(`./data/${unique_folder_id}`, true);
+
+    // after unzipping delete the zip file
+    fs.unlinkSync(`./data/${filename}`);
+
+    // now database times come
+    // 1.update comic_nmae_collection
+    // 2. upldate folder_name_collection
+
+    let dbSts = await comic_name_collection.updateOne(
+      { comic_id },
+      { $push: { episode_id:unique_folder_id } }
+    );
+
+    let statusUpate = await comic_name_collection.updateOne(
+      { comic_id },
+      { $set: { status: req.body.status } }
+    );
+
+    // searching comic_folder_collection
+    
+    let isExistCollection = await comic_folder_collection.find({comic_id}).toArray();
+    if(isExistCollection.length>0){
+      let updateFolderName = await comic_folder_collection.updateOne({comic_id},{$set:{[unique_folder_id]:unique_folder_id}});
+    }
+    else{
+      let insertFolderName = await comic_folder_collection.insertOne({comic_id, [unique_folder_id]:unique_folder_id})
+    }
+    res.json({st:"done"});
+  
+  }
+  catch(err){
+    console.log(err);
+    try{
+
+
+    }
+    catch(err){
+      console.log(err);
+      return res.json({status:400,msg:"Error in file upload!"});
+    }
+    res.json({status:400,msg:err.message});
+  }  
+})
+
+app.get("/admin/random_comic",async(req,res)=>{
+  try{
+    const random_comic = await comic_name_collection.aggregate([{ $sample: { size: 8 } }]).toArray();
+    res.json({status:200,random_comic});
+  }
+  catch(err){
+    res.json({status:400,msg:err.message});
   }
 })
 

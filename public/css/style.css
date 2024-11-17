@@ -24,6 +24,17 @@ html{
   font-size: 62.5%;
 }
 
+.btn{
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: cyan;
+  border-radius: 1rem;
+  background-color: #000;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 1rem 0rem 0rem 0rem;
+}
+
 .header{
   width: 100%;
   background: rgb(0, 0, 0);
@@ -194,4 +205,46 @@ html{
   border-radius: 1rem;
   padding: 1rem;
   margin:1rem 0rem;
+}
+
+
+.comic_container{
+  width: 90%;
+  margin: 1rem auto;
+}
+
+.comic_container .child_container{
+  display: flex;
+  width:100%;
+  height: 20rem;
+  justify-content: space-between;
+  margin: 0.5rem 0rem 0rem 0rem;
+
+
+}
+.comic_container .child_container .content{
+  display: flex;
+  flex-flow: column;
+  width:47%;
+  height: 100%;
+  background-color: #000000;
+  border-radius: 1rem;
+  text-decoration: none;
+}
+.comic_container .child_container .content img{
+  width:100%;
+  height: 100%;
+  border-radius: 1rem;
+
+}
+.comic_container .child_container .content p{
+  /* height: 5rem; */
+  font-size: 1.5rem;
+  color: #ffffff;
+  white-space: nowrap;    
+  overflow: hidden;  
+  text-overflow: ellipsis;
+  width: 100%;
+  font-weight: bold;
+  padding: 0rem 0.5rem;
 }

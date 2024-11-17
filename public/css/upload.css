@@ -9,7 +9,6 @@ body {
     border: none;
     box-sizing: border-box;
     font-family: "Roboto Mono", monospace;
-    transition: 1s ease-in-out;
 
 }
 
@@ -48,7 +47,7 @@ html {
     margin: 0.5rem 0rem;
 }
 
-.new_comic{
+.new_comic,.upload_episode{
     width: 95%;
     text-align: center;
     margin-top: 5rem;
@@ -92,8 +91,8 @@ html {
 
 .pop_up{
     width:95%;
-    position: absolute;
-    top:-110%;
+    position: fixed;
+    top:-100%;
     left: 50%;
     right: 50%;
     transform: translate(-50%,0);
@@ -105,20 +104,81 @@ html {
     box-shadow: 0rem 0rem 0.1rem 0.1rem #fff;
 }
 
-.pop_up h3{
+.upload_pop_up{
+    width:95%;
+    position: fixed;
+    top:-110%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%,0);
+    background-color: #000;
+    color: #fff;
+    border-radius: 1rem;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0rem 0rem 0.1rem 0.1rem #fff; 
+}
+
+.upload_pop_up .upload_status{
+    width: 80%;
+    margin: 1rem auto 3rem auto;
+    border: 0.1rem solid cyan;
+    height: 1rem;
+    
+}
+
+.upload_pop_up .upload_status #animation_show{
+    display:block;
+    width:0;
+    height: 100%;
+    background-color: red;
+}
+
+.upload_pop_up .upload_status #done_persent{
+    display:block;
+    margin: 1rem auto;
+    font-size: 1.5rem;
+    color: #fff;
+
+}
+
+.pop_up h3,.upload_pop_up h3{
     font-size: 3rem;
     color: cyan;
 }
 
-.pop_up p{
+.pop_up p, .upload_pop_up p{
     font-size: 2rem;
     color: #fff;
 }
-.pop_up .btn{
+.pop_up .btn ,.upload_pop_up .btn{
     display: block;
     width: 10rem;
     background-color: #252525;
     margin: 0rem auto;
+}
+
+/* upload episode */
+
+.upload_episode h3{
+    font-size: 3rem;
+    color:#fff;
+}
+
+.upload_episode p{
+    font-size: 2rem;
+    color:#fff;
+}
+
+.check_comic_id_form{
+    width: 75%;
+    display: block;
+    margin: 1rem auto;
+    display: none;
+}
+
+.active_check_comic_id_form{
+    display: block;
 }
 
 

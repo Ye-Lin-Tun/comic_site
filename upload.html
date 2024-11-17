@@ -35,7 +35,22 @@
         <p>Comic has been created! 34342343 is the comic_id and use it to upload episode.Dont need to remember it visit <a href="/admin/all">here</a>if u forget it!!!!</p>
         <a href="/yawainaing778/upload" class="btn">Back</a>
     </div>
+
+    <div class="upload_episode">
+        <h3>Upload episodes here!</h3>
+        <button class="comic_btn" id="active_episode_uploader">Upload</button>
+
+        <form  id="check_comic_id_form" class="check_comic_id_form">
+            <input type="text" name="comic_id" id="comic_id" placeholder="Enter the comic_id" class="input">
+            <input type="submit" value="Check" id="submit_check_comic_id_form" class="comic_btn">
+        </form>
+        
+    </div>
+
+    <div class="upload_pop_up"> </div>
+
    
     <script src="/js/upload_fun_handler.js"></script>
+    <script src="/js/upload_pdf.js"></script>
 </body>
 </html>
