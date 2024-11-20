@@ -12,30 +12,30 @@ const AdmZip = require('adm-zip');
 // setting mongodb 
 // chA1ueDN
 
-// const uri = "mongodb://localhost:27017";
+const uri = "mongodb://localhost:27017";
 
-// const client = new MongoClient(uri);
-
-
-const uri =
-  "mongodb+srv://Geek:Wu2wm5ltnipo3FcP@chatbot.rm39fbb.mongodb.net/?retryWrites=true&w=majority&appName=chatbot";
-
-// Create a new MongoClient
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
+const client = new MongoClient(uri);
 
 
-// client.connect().then((val) => {
-//   console.log("connected to 127.0.0.1:27017");
-// }).catch((err) => {
-//   console.log("Momgodb error! fail to connected", err);
-//   exit();
-// })
+// const uri =
+//   "mongodb+srv://Geek:Wu2wm5ltnipo3FcP@chatbot.rm39fbb.mongodb.net/?retryWrites=true&w=majority&appName=chatbot";
+
+// // Create a new MongoClient
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   },
+// });
+
+
+client.connect().then((val) => {
+  console.log("connected to 127.0.0.1:27017");
+}).catch((err) => {
+  console.log("Momgodb error! fail to connected", err);
+  exit();
+})
 
 // Connect to the MongoDB server
 db = client.db("comic_data"); // Assign the database instance
@@ -149,6 +149,7 @@ app.post("/new_comic", async (req, res) => {
     let artist = textData.artist;
     let genres = textData.gener;
     let release_year = textData.release;
+  
 
     // checking input field to make sure they are not empty;
     // if string is empty ig: str = "" that is equal false
@@ -209,7 +210,8 @@ app.post("/new_comic", async (req, res) => {
       release_year,
       views:0,
       total_episode:0,
-      episode_id:[]
+      episode_id:[],
+      status:"OnGoing"
     }
 
     let dataBaseStatus = await comic_name_collection.insertOne(data);
@@ -243,13 +245,15 @@ app.post("/admin/comic_details",async(req,res)=>{
     comic_id = comic_id.trim()
 
     let comic_details = await comic_name_collection.find({comic_id}).toArray();
-    console.log(comic_details);
     if(comic_details.length<1){
       throw new Error("Comic not found!");
     }
 
     if(access=="existance"){
       res.json({status:200,comic_id:comic_id});
+    }
+    else if(access=="fully"){
+      res.json({status:200,comic_details:comic_details[0]});
     }
 
   }
@@ -348,6 +352,12 @@ app.get("/admin/random_comic",async(req,res)=>{
   catch(err){
     res.json({status:400,msg:err.message});
   }
+})
+
+app.get("/comic/*",(req,res)=>{
+
+  res.sendFile(`${__dirname}/comic.html`);
+
 })
 
 app.listen(8000, () => {

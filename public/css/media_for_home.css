@@ -14,18 +14,10 @@
 
     .comic_container{
         width: 100%;
-        margin: 1rem auto;
-        border: 0.5rem solid red;
     }
 
-    .comic_container .child_container .content{
-        height: 100%;
-        width: 50%;
-        margin:0rem 0.5rem 0rem 0rem;
-        
-    }
+   
 }
-
 
 
 
@@ -39,10 +31,6 @@
         top: 45%;
     }
 
-    .comic_container .child_container .content{
-        height: 100%;
-        width: 50%;
-        margin:0rem 0.1rem 0rem 0rem;
-    }
+    
     
 }

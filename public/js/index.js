@@ -34,24 +34,17 @@ async function load_random_comic() {
 
 
     let random_comic = data.random_comic;
-    let html = ``
+    console.log(random_comic)
+   
     let index = 0;
     while (index < random_comic.length) {
-        let html = `
-                <div class="child_container">
-                    <a href="/comic/${random_comic[index].comic_id}" class="content">
-                        <img src="/${random_comic[index].thumbnail_id}" alt="">
-                        <p>${random_comic[index].comic_name}</p>
-                    </a>
-                    <a href="/comic/${random_comic[index+1].comic_id}" class="content">
-                        <img src="/${random_comic[index+1].thumbnail_id}" alt="">
-                        <p>${random_comic[index+1].comic_name}</p>
-                    </a>
-                </div>`
-
-        let load_more = document.querySelector("#load_more_button");
-        load_more.insertAdjacentHTML("beforebegin",html);
-        index = index+2;
+       let html = ` <a href="comic/${random_comic[index].comic_id}" class="content">
+      <img src="${random_comic[index].thumbnail_id}" alt="">
+      <p>${random_comic[index].comic_name}</p>
+    </a>`
+    document.querySelector(".comic_container").insertAdjacentHTML("beforeend",html);
+    index++;
+    console.log(index);
     }
 
 }
