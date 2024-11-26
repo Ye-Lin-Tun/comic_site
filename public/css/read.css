@@ -1,169 +1,136 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
+/* font-family: "Anton", sans-serif;
 
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: "Oswald", sans-serif;
-    transition: 1s ease-in-out;
-    -webkit-overflow-scrolling: touch;
+font-family: "Roboto Mono", monospace;
+
+*/
+body {
+  background: rgb(18, 16, 75);
+  background: linear-gradient(90deg, rgba(18, 16, 75, 1) 0%, rgba(7, 7, 7, 1) 75%);
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
+  /* transition: 1s ease-in-out; */
 
-
-html{
-    font-size: 62.5%;
 }
 
-html::-webkit-scrollbar-track{
-    width:0.5rem;
-    background:#252525;
+html {
+  font-size: 62.5%;
 }
 
-
-
-html::-webkit-scrollbar{
-    width: 0.5rem;
-    background-color: #252525;
+.btn {
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: cyan;
+  border-radius: 1rem;
+  background-color: #000;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 1rem 0rem 0rem 0rem;
 }
 
-
-
-html::-webkit-scrollbar-thumb{
-    background: #ff5700;
-    /* width: 1rem; */
-    border-radius: 1rem;
+.header {
+  width: 100%;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(90deg, rgb(23, 22, 44) 0%, rgba(7, 7, 7, 1) 100%);
+  padding: 1rem 7%;
+  position: relative;
+  box-shadow: 0rem 0rem 1rem 0.1rem #000;
 }
 
-body{
-    background-color: #252525;
+.header .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.header #site_logo {
+  width: 5rem;
 
-.header{
-    position: fixed;
 }
 
-
-.navbar{
-    display: flex;
-    background-color: rgba(0, 0, 0,0.9);
-    padding: 1rem 7%;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #000000;
-    position: fixed;
-    top: 0rem;
-    left: 0;
-    right:0;
-    z-index: 10000;
- 
+.header .navbar .nav_icon {
+  display: flex;
+  gap: 2rem;
 }
 
-.navbar h3{
-    font-size: 3.5rem;
-    font-family: "Oswald", sans-serif;
+.header .navbar .nav_icon .icon {
+  font-size: 2.5rem;
+  color: #fff;
 }
 
-.navbar h3 span{
-    color:#ff5700;
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 100px;
+  display: grid;
+  background: radial-gradient(farthest-side, #fff 98%, #0000) center/30px 100% no-repeat;
+  --mask:
+    radial-gradient(12px at left 15px top 50%, #0000 95%, #000),
+    radial-gradient(12px at center, #0000 95%, #000),
+    radial-gradient(12px at right 15px top 50%, #0000 95%, #000);
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  animation: l2 0.5s infinite alternate;
 }
 
-.navbar .nav_icon{
-    font-size: 2.5rem;
-    color: #fff;  
+.loader:before,
+.loader:after {
+  content: "";
+  grid-area: 1/1;
+  height: 30px;
+  aspect-ratio: 1;
+  background: #fff;
+  border-radius: 50%;
 }
 
-.navbar .nav_icon a{
-    margin: 0rem 1rem;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
+.loader:after {
+  margin-left: auto;
 }
 
-.navbar .nav_icon a:hover{
-    color: #ff5700;
+@keyframes l2 {
+  to {
+    width: 50px;
+  }
 }
 
-.pdf_comic_button{
-    position: fixed;
-    bottom: 0rem;
-    width: 100%;
-    background-color: rgba(0, 0, 0,0.9);
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #000000;
-    padding: 1rem 7%;
-    display: flex;
-    justify-content: space-between;
+.comic_image{
+  width: 80%;
+  margin: 1rem auto;
+  /* height: 40rem; */
 }
 
-.pdf_comic_button button{
-    background-color: #252525;
-    color: #ff5700;
-    font-size: 1.5rem;
-    border-radius:0.7rem;
-    padding:0.5rem;
-    border: 0.1rem solid #000;
+.comic_image .content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height: 100rem;
+  background-color: #252525;
+  border-radius: 1rem;
+  margin: 0.1rem 0rem;
 }
 
-.pdf_comic_button button i{
-    margin: 0rem 0.5rem;
+.comic_image .content img{
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
 }
 
-.container{
-    width: 70%;  /* Full width */
-    display: block;
-    margin: 0rem auto;
-    padding: 0 0.5rem;
-    overflow:hidden;
-}
+@media (max-width:800px) {
 
-.container img{
-    width: 100%;
-    height: 100%;
-    zoom: 50%;
-    border-radius: 2rem;
-    /* transform: scale(1); */
-}
+  .comic_image{
+    width: 98%;
+  }
 
-.temp{
-    position:fixed;
-    top: 50%;
-    right: 50%;left: -100%;
-    transform: translate(-50%,-50%);
-    width: 50rem;
-    height: 20rem;
-    background-color: #252525;
-    border-radius: 1rem;
-    box-shadow: 0rem 0rem 0.1rem 0.1rem #000;
-    text-align: center;
+  .comic_image .content{
+    height: 120rem;
+  }
 }
-.temp p{
-    margin-top:8rem;
-    /* margin-bottom: 50%; */
-    font-size: 2.5rem;
-    color: #fff;
-}
-
-.temp #close_temp_button{
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 3.5rem;
-    color: #ff5700;
-    cursor: pointer;
-}
-
-@media (max-width:786px) {
-    .container{
-        width: 100%;
-    }
-
-    .temp{
-        width: 100%;
-    }
-}
-
-    

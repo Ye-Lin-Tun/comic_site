@@ -255,17 +255,26 @@ check_comic_id_form.onsubmit = async function (event) {
 
                         let done_persent = document.querySelector("#done_persent");
                         done_persent.textContent = Math.floor(percentComplete) + "%";
+
+                        if(percentComplete>=100){
+                             upload_pop_up.innerHTML = `<h3>Finishing up!</h3>`
+                        }
                     }
                 });
 
                 xhr.onload = function () {
                     let response_json = JSON.parse(xhr.responseText);
-                    console.log(response_json);
+                    if(response_json.status==200){
+                        upload_pop_up.innerHTML = `<h3>All Done!</h3><a href="/yawainaing778/upload" class="btn">Back</a>`
+                    }
+                    else{
+                         upload_pop_up.innerHTML = `<h3>Error! Try again </h3><a href="/yawainaing778/upload" class="btn">Back</a>`
+                    }
 
                 };
 
                 xhr.onerror = function () {
-
+                    upload_pop_up.innerHTML = `<h3>All Done!</h3><a href="/yawainaing778/upload" class="btn">Back</a>`
                 };
 
                 xhr.open('POST', '/admin/upload_zip', true);

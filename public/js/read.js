@@ -1,103 +1,53 @@
-async function getImgNum() {
-  try {
-    // Get folder name from URL
+async function main(){
     let url = document.URL;
-    url = url.split("/").pop(); // More concise way of getting last part of URL
-    console.log(url);
+    let folder_name = url.split("/");
+    folder_name = folder_name[folder_name.length-1];
+    
+    let form = new FormData();
+    form.append("folder_id",folder_name);
 
-    // Fetch request to get image numbers
-    let response = await fetch("/get_img_num", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ folder_name: url })
-    });
+    let init = await fetch("admin/folder_details",{method:"POST",body:form});
+    let data = await init.json();
+    console.log(data);
+    create_content_box(data);
 
-    // Check if response is OK (status 200-299)
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-
-    // Parse JSON data from response
-    let data = await response.json();
-
-    // If data is successful, load images
-    if (data.status === 200) {
-      let container = document.querySelector(".container");
-      let imgs = data.images ;
-
-      let next = data.next;
-      let previous = data.previous;
-
-      let previous_button = document.querySelector("#previous");
-      let next_button = document.querySelector("#next");
-
-      previous_button.dataset.id = previous;
-      next_button.dataset.id = next;
-
-
-      // Loop through the images and append them to the container
-      for (let i = 0; i < imgs.length; i++) {
-        console.log(imgs[i]);
+    for(let a =0;a<data.images.length;a++){
         let img = document.createElement("img");
-        img.src = `/${url}/${imgs[i]}`;
+        img.src = `/data/${folder_name}/${data.images[a]}`;
 
         img.onload = function () {
-          container.append(img); // Append image after it's fully loaded
+            document.querySelectorAll(".content")[a].innerHTML = '';
+            document.querySelectorAll(".content")[a].insertAdjacentElement("beforeend",img)
         };
 
         img.onerror = function () {
           console.log(`Error loading image: ${imgs[i]}`);
 
         };
-      }
-    } else {
-      console.log("Error fetching images:", data);
     }
-  } catch (err) {
-    console.log("Fetch error:", err);
-  }
+
+
 }
 
 
-getImgNum();
+function create_content_box(data){
+    let total_images = data.total_images;
+    let comic_image = document.querySelector(".comic_image");
+    for(let a  =0;a<total_images;a++){
+        comic_image.insertAdjacentHTML("beforeend",`<div class="content">
+                                                    <div class="loader"></div>
+                                                    </div>`)     
+                                      
+    }
 
+}
 
-let previous = document.querySelector("#previous");
-let next = document.querySelector("#next");
-let message = document.querySelector("#message");
+function load_images(data,folder_id){
+    let images  = data.images;
+    let path = `/data/${folder_id}`;
+}
+ 
 
-previous.onclick = function(){
-  let data = previous.dataset.id;
-  if(data=="null"){
-    message.innerHTML = "No previous comic available!"
-    let temp = document.querySelector(".temp");
-    temp.style.left = "50%";
-  }
-  else{
-    l = `/read/${data}`
-    document.location.href = l;
-  }
   
-}
-next.onclick = function(){
-  let data = next.dataset.id;
 
-  if(data=="null"){
-    
-    message.innerHTML = "No next comic available!"
-    let temp = document.querySelector(".temp");
-    temp.style.left = "50%";
-  }
-  else{
-    l = `/read/${data}`
-    document.location.href = l;
-  }
-}
-
-let close_temp_button = document.querySelector("#close_temp_button");
-close_temp_button.onclick = function(){
-  let temp = document.querySelector(".temp");
-  temp.style.left = "-100%";
-}
+main();

@@ -49,7 +49,7 @@ async function load_about_comic(data){
     
     let html = `
 
-    <img src="/${thumbnail_id}" alt="" loading="lazy">
+    <img src="/thumbnail/${thumbnail_id}" alt="" loading="lazy">
     
     
     <div class="details">
@@ -74,14 +74,40 @@ async function load_about_comic(data){
     document.querySelector(".about_comic").innerHTML = html;
 }
 
+async function  load_episodes(comic_id){
+    let form = new FormData();
+    form.append("comic_id",comic_id);
+    form.append("access","episode");
+
+    let init =  await fetch("/admin/comic_details",{method:"POST",body:form});
+    let data = await init.json();
+    console.log(data);
+    let name = data.comic_name
+    data = data.episode;
+
+    let episode = document.querySelector(".episode");
+
+
+    for(let a  =0;a<data.length;a++){
+        let html = `
+            <a href="/read/${data[a]}" class="box">
+                <div class="episode_number">${a+1}</div>
+                <p>${name}-Episode-${a+1}</p>
+            </a>
+        `
+
+        episode.insertAdjacentHTML("beforeend",html);
+    }
+}
+
 async function main() {
     let url = document.URL
     url = url.split("/");
     let comic_id = url[url.length - 1];
 
     let data = await fetch_data(comic_id);
-    console.log(data.comic_details);
     load_about_comic(data);
+    load_episodes(comic_id);
 }
 
 main();

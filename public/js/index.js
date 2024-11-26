@@ -39,7 +39,7 @@ async function load_random_comic() {
     let index = 0;
     while (index < random_comic.length) {
        let html = ` <a href="comic/${random_comic[index].comic_id}" class="content">
-      <img src="${random_comic[index].thumbnail_id}" alt="">
+      <img src="thumbnail/${random_comic[index].thumbnail_id}" alt="">
       <p>${random_comic[index].comic_name}</p>
     </a>`
     document.querySelector(".comic_container").insertAdjacentHTML("beforeend",html);

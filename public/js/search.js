@@ -1,42 +1,34 @@
-let input_box = document.querySelector("#search");
-let display_search = document.querySelector(".display_search");
+let search_box = document.querySelector("#search");
+let search_display = document.querySelector(".display_search_result");
 
 
-input_box.addEventListener("focus",function (){
-    if(search_button.classList=="fas fa-search"){
-        search_button.classList = "fas fa-times"
+search_box.addEventListener("input",async function(event){
+    let value = search_box.value;
+    let form = new FormData();
+    form.append("value",value);
+
+    let init = await fetch("/admin/search",{method:"POST",body:form});
+    let data = await init.json();
+
+    console.log(data);
+
+    if(data.status!=200){
+        search_display.innerHTML = data.msg;
+        return;
     }
-    display_search.style.left = "50%";
-})
 
+    data = data.response_data;
+    search_display.innerHTML ="";
+    
+    for(let a =0;a<data.length;a++){
+        let html = ` <a href="/comic/${data[a].comic_id}" class="search_content">
+        <i class="fas fa-share"></i>
+        <p>${data[a].comic_name}</p>
+      </a>
+      `
 
-
-input_box.addEventListener("input",async function(){
-    let search = input_box.value;
-    display_search.innerHTML = ``;
-    let init = await fetch("/admin/search",{
-        method:"POST",
-        headers:{
-            "Content-Type":"Application/json"
-        },
-        body:JSON.stringify({search})
-    })
-
-    let data  = await init.json();
-    if(data.status==404){
-        display_search.innerHTML = "<h3> Could not found anything </h3>"
+      search_display.insertAdjacentHTML("beforeend",html);
     }
-    else if(data.status==200){
-        let arr = data.data;
-        arr = JSON.parse(arr);
-        for(let a =0;a<arr.length;a++){
-            let comic_name = arr[a].comic_name;
-            let comic_id = arr[a].comic_id;
 
-            let html = ` 
-          <a href="/comic/${comic_id}"><i class="fas fa-search"></i>${comic_name}</a>
-            `
-            display_search.insertAdjacentHTML("beforeend",html);
-        }
-    }
+
 })
