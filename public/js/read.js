@@ -1,33 +1,42 @@
-async function main(){
+async function main() {
     let url = document.URL;
     let folder_name = url.split("/");
-    folder_name = folder_name[folder_name.length-1];
+    folder_name = folder_name[folder_name.length - 1];
     
     let form = new FormData();
-    form.append("folder_id",folder_name);
+    form.append("folder_id", folder_name);
 
-    let init = await fetch("admin/folder_details",{method:"POST",body:form});
+    let init = await fetch("admin/folder_details", { method: "POST", body: form });
     let data = await init.json();
-    console.log(data);
+    
     create_content_box(data);
 
-    for(let a =0;a<data.images.length;a++){
-        let img = document.createElement("img");
-        img.src = `/data/${folder_name}/${data.images[a]}`;
+    // Function to load images sequentially
+    async function loadImagesSequentially(images) {
+        for (let a = 0; a < images.length; a++) {
+            let img = document.createElement("img");
+            img.src = `/data/${folder_name}/${images[a]}`;
 
-        img.onload = function () {
-            document.querySelectorAll(".content")[a].innerHTML = '';
-            document.querySelectorAll(".content")[a].insertAdjacentElement("beforeend",img)
-        };
+            // Once the image is loaded, we display it
+            await new Promise((resolve, reject) => {
+                img.onload = function () {
+                    document.querySelectorAll(".content")[a].innerHTML = ''; // Clear any previous content
+                    document.querySelectorAll(".content")[a].insertAdjacentElement("beforeend", img); // Insert the loaded image
+                    resolve(); // Image loaded successfully, move to the next one
+                };
 
-        img.onerror = function () {
-          console.log(`Error loading image: ${imgs[i]}`);
-
-        };
+                img.onerror = function () {
+                    console.log(`Error loading image: ${img.src}`);
+                    reject(); // Reject in case of an error
+                };
+            });
+        }
     }
 
-
+    // Call the function to load images sequentially
+    loadImagesSequentially(data.images);
 }
+
 
 
 function create_content_box(data){

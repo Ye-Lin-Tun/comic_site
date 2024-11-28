@@ -200,6 +200,7 @@ app.post("/admin/comic_details", async (req, res) => {
       res.json({ status: 200, comic_id: comic_id });
     }
     else if (access == "fully") {
+      await comic_name_collection.updateOne({comic_id},{ $inc: { views: +1 } })
       res.json({ status: 200, comic_details: comic_details[0] });
     }
     else if(access=="episode"){
@@ -216,6 +217,14 @@ app.post("/admin/upload_zip", async (req, res) => {
   let unique_folder_id;
   let filename;
   try {
+
+    let status = req.body.status;
+    status = status.trim();
+    console.log(status);
+    if(status!="OnGoing" && status!="End"){
+      throw new Error("Status must be only OnGoing or End! Wait are you trying to down the server huh?🥲 ");
+    }
+
     let comic_id = req.body.comic_id;
     comic_id = comic_id.trim();
 
@@ -265,7 +274,7 @@ app.post("/admin/upload_zip", async (req, res) => {
 
     let statusUpate = await comic_name_collection.updateOne(
       { comic_id },
-      { $set: { status: req.body.status } }
+      { $set: { status: status } }
     );
 
     // searching comic_folder_collection
@@ -281,15 +290,7 @@ app.post("/admin/upload_zip", async (req, res) => {
 
   }
   catch (err) {
-    console.log(err);
-    try {
-
-
-    }
-    catch (err) {
-      console.log(err);
-      return res.json({ status: 400, msg: "Error in file upload!" });
-    }
+    
     res.json({ status: 400, msg: err.message });
   }
 })
@@ -381,6 +382,63 @@ app.post("/admin/search",async(req,res)=>{
   res.json({status:400,msg:err.message});
  }
 })
+
+
+app.get('/admin/get', async (req, res) => {
+  try {
+    const comics = await comic_name_collection.find({}).toArray();
+    // Start the HTML response
+    let htmlResponse = `
+      <html>
+        <head>
+          <title>Comic List</title>
+          <style>
+            table {
+              width: 50%;
+              margin: 20px auto;
+              border-collapse: collapse;
+            }
+            th, td {
+              padding: 10px;
+              text-align: center;
+              border: 1px solid #ddd;
+            }
+            th {
+              background-color: #f2f2f2;
+            }
+          </style>
+        </head>
+        <body>
+          <h1 style="text-align: center;">Comic List</h1>
+          <table>
+            <tr>
+              <th>Comic Name</th>
+              <th>Comic ID</th>
+            </tr>
+    `;
+    
+    // Loop through comics and add rows to the table
+    comics.forEach(comic => {
+      htmlResponse += `
+        <tr>
+          <td>${comic.comic_name}</td>
+          <td>${comic.comic_id}</td>
+        </tr>
+      `;
+    });
+
+    // Close the table and HTML
+    htmlResponse += `
+          </table>
+        </body>
+      </html>
+    `;
+
+    res.send(htmlResponse); // Send the HTML response
+  } catch (error) {
+    res.status(500).send("<h2>Failed to fetch data</h2>");
+  }
+});
 
 app.listen(8000, () => {
   console.log("server is running...")

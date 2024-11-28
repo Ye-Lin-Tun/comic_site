@@ -81,11 +81,16 @@ async function  load_episodes(comic_id){
 
     let init =  await fetch("/admin/comic_details",{method:"POST",body:form});
     let data = await init.json();
-    console.log(data);
+    
     let name = data.comic_name
     data = data.episode;
 
     let episode = document.querySelector(".episode");
+    if(data.length<1){
+        episode.innerHTML = `<h3 style="color:#fff"> No episode avaiable for now </h3>`
+        return;
+    }
+
 
 
     for(let a  =0;a<data.length;a++){

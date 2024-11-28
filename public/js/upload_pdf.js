@@ -268,7 +268,7 @@ check_comic_id_form.onsubmit = async function (event) {
                         upload_pop_up.innerHTML = `<h3>All Done!</h3><a href="/yawainaing778/upload" class="btn">Back</a>`
                     }
                     else{
-                         upload_pop_up.innerHTML = `<h3>Error! Try again </h3><a href="/yawainaing778/upload" class="btn">Back</a>`
+                         upload_pop_up.innerHTML = `<h3>${response_json.msg} </h3><a href="/yawainaing778/upload" class="btn">Back</a>`
                     }
 
                 };

@@ -36,15 +36,46 @@ async function load_random_comic() {
     let random_comic = data.random_comic;
     console.log(random_comic)
    
-    let index = 0;
-    while (index < random_comic.length) {
-       let html = ` <a href="comic/${random_comic[index].comic_id}" class="content">
-      <img src="thumbnail/${random_comic[index].thumbnail_id}" alt="">
-      <p>${random_comic[index].comic_name}</p>
-    </a>`
-    document.querySelector(".comic_container").insertAdjacentHTML("beforeend",html);
-    index++;
-    console.log(index);
+    let a = 0;
+    let comic_container = document.querySelector(".comic_container");
+    while (a < random_comic.length) {
+        console.log(random_comic[a].status)
+        if(random_comic[a].status=="OnGoing"){
+            let html = `
+                <a href="comic/${random_comic[a].comic_id}" class="content">
+                    <div class="status_on_thumbnail">${random_comic[a].status}</div>
+                    <img src="thumbnail/${random_comic[a].thumbnail_id}" alt="">
+                    <div class="comic_title">
+                        <p class="comic_name">${random_comic[a].comic_name}</p>
+                        <div class="view">
+                            <i class="fas fa-eye"></i>
+                            <p>${random_comic[a].views}</p>
+                        </div>
+                    </div>
+                </a>
+            `
+
+            comic_container.insertAdjacentHTML("beforeend",html);
+        }
+
+        if(random_comic[a].status=="End"){
+            let html = `
+                <a href="comic/${random_comic[a].comic_id}" class="content">
+                    <div class="status_on_thumbnail red">${random_comic[a].status}</div>
+                    <img src="thumbnail/${random_comic[a].thumbnail_id}" alt="">
+                    <div class="comic_title">
+                        <p class="comic_name">${random_comic[a].comic_name}</p>
+                        <div class="view">
+                            <i class="fas fa-eye"></i>
+                            <p>${random_comic[a].views}</p>
+                        </div>
+                    </div>
+                </a>
+            `
+            comic_container.insertAdjacentHTML("beforeend",html);
+
+        }
+        a++;
     }
 
 }
