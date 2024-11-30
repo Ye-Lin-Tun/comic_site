@@ -242,7 +242,9 @@ app.post("/admin/upload_zip", async (req, res) => {
 
 
     let zip = req.files.zip;
-    if (zip.mimetype !== "application/x-zip-compressed") {
+
+    console.log(zip.mimetype)
+    if (zip.mimetype !== "application/x-zip-compressed" && zip.mimetype!=="application/zip") {
       return res.json({ status: 400, msg: "Invalid file type.File must be a zip!" });
     }
 
@@ -290,8 +292,64 @@ app.post("/admin/upload_zip", async (req, res) => {
 
   }
   catch (err) {
-    
+    console.log(err);
     res.json({ status: 400, msg: err.message });
+  }
+})
+
+app.post("/admin/delete_episode",async(req,res)=>{
+  try{
+    let folder_id = req.body.delete_episode_id;
+    console.log(folder_id)
+    if(!folder_id){
+      throw new Error("episode id can't be empty");
+    }
+
+    let check_folder_id = await comic_folder_collection.find({[folder_id]:folder_id}).toArray();
+    console.log(check_folder_id)
+    if(check_folder_id.length<1){
+      throw new Error("Episode not found!");
+    }
+
+    let comic_id = check_folder_id[0].comic_id;
+    let episode_arr = await comic_name_collection.find({comic_id}).toArray();
+    if(episode_arr.length<1){
+      throw new Error("Contact developer:Error name // Fail to get episode_id array!");
+    }
+    episode_arr = episode_arr[0].episode_id;
+    console.log(episode_arr)
+
+    let index_of_deleting_episode = episode_arr.indexOf(folder_id);
+    if(index_of_deleting_episode===-1){
+      throw new Error("Deleteing folder_id is not found in episode_id array");
+    }
+
+    let araryBefore = episode_arr.slice(0,index_of_deleting_episode);
+    let arrayAfter = episode_arr.slice(index_of_deleting_episode+1);
+
+
+
+    let new_episode_arr = araryBefore.concat(arrayAfter);
+
+
+    // updating to comic_name_collection
+    let update_comic_name_collection_status = await comic_name_collection.updateOne({comic_id},{$set:{episode_id:new_episode_arr}});
+
+    if(!update_comic_name_collection_status.modifiedCount){
+      throw new Error("Failed to update in database!Episode not deleted");
+    }
+
+    // update comic_folder_collection
+
+    let update_comic_folder_collection_status = await comic_folder_collection.deleteOne({[folder_id]:folder_id});
+    
+    fs.rmSync(`./data/${folder_id}`,{ recursive: true, force: true });
+
+    res.json({status:200,msg:"Episode deleted"});
+
+  }
+  catch(err){
+    res.json({status:400,msg:err.message});
   }
 })
 
@@ -384,7 +442,7 @@ app.post("/admin/search",async(req,res)=>{
 })
 
 
-app.get('/admin/get', async (req, res) => {
+app.get('/admin/all', async (req, res) => {
   try {
     const comics = await comic_name_collection.find({}).toArray();
     // Start the HTML response

@@ -1,10 +1,11 @@
 function get_name(total_char) {
-    let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_!";
+    let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZxxbkd_";
     let final_random_name = "";
     for (let i = 0; i < total_char; i++) {
         let random_number = Math.floor(Math.random() * str.length);
         final_random_name += str[random_number];
     }
+    
     return final_random_name;
 }
 

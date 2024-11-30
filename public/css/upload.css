@@ -47,7 +47,7 @@ html {
     margin: 0.5rem 0rem;
 }
 
-.new_comic,.upload_episode{
+.new_comic,.upload_episode,.delete_episode{
     width: 95%;
     text-align: center;
     margin-top: 5rem;
@@ -89,7 +89,7 @@ html {
     display: block;
 }
 
-.pop_up{
+.delete_pop_up,.pop_up{
     width:95%;
     position: fixed;
     top:-100%;
@@ -142,16 +142,16 @@ html {
 
 }
 
-.pop_up h3,.upload_pop_up h3{
+.pop_up h3,.upload_pop_up h3,.delete_pop_up h3{
     font-size: 3rem;
     color: cyan;
 }
 
-.pop_up p, .upload_pop_up p{
+.pop_up p, .upload_pop_up p,.delete_pop_up p{
     font-size: 2rem;
     color: #fff;
 }
-.pop_up .btn ,.upload_pop_up .btn{
+.pop_up .btn ,.upload_pop_up .btn , .delete_pop_up .btn{
     display: block;
     width: 10rem;
     background-color: #252525;
@@ -178,6 +178,23 @@ html {
 }
 
 .active_check_comic_id_form{
+    display: block;
+}
+
+.delete_episode h3{
+    font-size: 3rem;
+    color:#fff;
+}
+
+
+.delete_episode_form{
+    width: 75%;
+    display: block;
+    margin: 1rem auto;
+    display: none;
+}
+
+.active_delete_episode_form{
     display: block;
 }
 

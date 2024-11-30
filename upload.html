@@ -49,8 +49,22 @@
 
     <div class="upload_pop_up"> </div>
 
+    <div class="delete_episode">
+        <h3>Delete episodes here!</h3>
+        <button class="comic_btn" id="active_episode_deleter">Delete</button>
+
+        <form  id="delete_episode_form" class="check_comic_id_form">
+            <input type="text" name="delete_episode_id" id="delete_episode" placeholder="Enter the episode id" class="input">
+            <input type="submit" value="Delete Now" id="delete_episode_button" class="comic_btn">
+        </form>
+    </div>
+
+    <div class="delete_pop_up"> </div>
+
+
    
     <script src="/js/upload_fun_handler.js"></script>
     <script src="/js/upload_pdf.js"></script>
+    <script src="/js/delete_episode.js"></script>
 </body>
 </html>

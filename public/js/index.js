@@ -38,8 +38,9 @@ async function load_random_comic() {
    
     let a = 0;
     let comic_container = document.querySelector(".comic_container");
+    comic_container.innerHTML  = '';
     while (a < random_comic.length) {
-        console.log(random_comic[a].status)
+        
         if(random_comic[a].status=="OnGoing"){
             let html = `
                 <a href="comic/${random_comic[a].comic_id}" class="content">

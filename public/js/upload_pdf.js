@@ -274,7 +274,7 @@ check_comic_id_form.onsubmit = async function (event) {
                 };
 
                 xhr.onerror = function () {
-                    upload_pop_up.innerHTML = `<h3>All Done!</h3><a href="/yawainaing778/upload" class="btn">Back</a>`
+                    upload_pop_up.innerHTML = `<h3>Error!</h3><a href="/yawainaing778/upload" class="btn">Back</a>`
                 };
 
                 xhr.open('POST', '/admin/upload_zip', true);
