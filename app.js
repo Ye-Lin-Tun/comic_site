@@ -68,8 +68,13 @@ app.use('/data', (req, res, next) => {
 
 });
 
-app.use("/data",express.static(`${__dirname}/data`));
-app.use("/thumbnail",express.static(`${__dirname}/data/thumbnail`));
+
+let dataPath = path.join(__dirname,"../data");
+
+
+
+app.use("/data",express.static(dataPath));
+app.use("/thumbnail",express.static(path.join(dataPath,"thumbnail")));
 
 app.get("/", (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
@@ -124,7 +129,7 @@ app.post("/new_comic", async (req, res) => {
     }
 
     await new Promise((resolve, reject) => {
-      thumbnail.mv(`./data/thumbnail/${filename}`, (err) => {
+      thumbnail.mv(`${dataPath}/thumbnail/${filename}`, (err) => {
         if (err) {
           reject(err);
         } else {
@@ -167,17 +172,6 @@ app.post("/new_comic", async (req, res) => {
     res.json({ status: 200, comic_id });
   }
   catch (err) {
-    if (filename != undefined) {
-      try {
-        if (fs.existsSync(`./data/${filename}`)) {
-          fs.unlinkSync(`./data/${filename}`);
-          return res.json({ status: 400, msg: err.message });
-        }
-      }
-      catch (err) {
-        return res.json({ status: 400, msg: "Error file uploading file!" });
-      }
-    }
     return res.json({ status: 400, msg: err.message });
   }
 })
@@ -187,7 +181,6 @@ app.post("/admin/comic_details", async (req, res) => {
     let comic_id = req.body.comic_id;
     let access = req.body.access;
 
-    console.log(req.body);
 
     comic_id = comic_id.trim()
 
@@ -237,7 +230,7 @@ app.post("/admin/upload_zip", async (req, res) => {
 
     // getting unquire folder_name;
 
-    filename = await random_name.get_name(8) + ".rar"
+    filename = random_name.get_name(8) + ".rar"
     unique_folder_id = await random_name.unique_folder_id(comic_folder_collection);
 
 
@@ -249,21 +242,20 @@ app.post("/admin/upload_zip", async (req, res) => {
     }
 
     await new Promise((resolve, reject) => {
-      zip.mv(`./data/${filename}`, (err) => {
+      zip.mv(`${dataPath}/${filename}`, (err) => {
         if (err) {
           reject(err);
         } else {
-          console.log("zip uploaded!");
           resolve();
         }
       });
     });
 
-    const unzip = new AdmZip(`./data/${filename}`);
-    unzip.extractAllTo(`./data/${unique_folder_id}`, true);
+    const unzip = new AdmZip(`${dataPath}/${filename}`);
+    unzip.extractAllTo(`${dataPath}/${unique_folder_id}`, true);
 
     // after unzipping delete the zip file
-    fs.unlinkSync(`./data/${filename}`); 
+    fs.unlinkSync(`${dataPath}/${filename}`); 
 
     // now database times come
     // 1.update comic_nmae_collection
@@ -343,7 +335,7 @@ app.post("/admin/delete_episode",async(req,res)=>{
 
     let update_comic_folder_collection_status = await comic_folder_collection.deleteOne({[folder_id]:folder_id});
     
-    fs.rmSync(`./data/${folder_id}`,{ recursive: true, force: true });
+    fs.rmSync(`${dataPath}/${folder_id}`,{ recursive: true, force: true });
 
     res.json({status:200,msg:"Episode deleted"});
 
@@ -387,14 +379,14 @@ app.post("/admin/folder_details", async (req, res) => {
     }
 
     // checking does that folder exist or not
-    let folder_exist_in_data = fs.existsSync(`./data/${folder_id}`);
+    let folder_exist_in_data = fs.existsSync(`${dataPath}/${folder_id}`);
     if(!folder_exist_in_data){
       throw new Error("Folder does not exist!");
     }
 
     // reading all images inside folder
 
-    let images = fs.readdirSync(`./data/${folder_id}`);
+    let images = fs.readdirSync(`${dataPath}/${folder_id}`);
     let total_images = images.length;
 
     res.json({status:200,images,total_images});

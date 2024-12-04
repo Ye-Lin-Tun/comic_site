@@ -119,25 +119,44 @@ html{
 .about_comic{
 
   /* height: 100vh; */
-  margin-top: 10rem;
+  /* margin-top: 10rem; */
+  position: relative;
+}
+
+.about_comic .blur_bg{
+  position:absolute;
+  top: 0rem;bottom: 0rem;
+  right: 0rem;left: 0;
+  background-color: red;
 }
 
 .about_comic img{
+  position: relative;
+  z-index: 1000;
   display: block;
   margin: 1rem auto;
   width: 40%;
   height: 60%;
   border-radius: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .about_comic .details{
+  position: relative;
+  z-index: 1000;
   width: 40%;
   /* border: 0.1rem solid red; */
   margin: 0rem auto 0rem auto;
-  background-color: #0a0917;
-  box-shadow: 0rem 0rem 0.1rem 0.1rem #000000;
+  /* background-color: #0a0917; */
+  /* box-shadow: 0rem 0rem 0.1rem 0.1rem #000000; */
   border-radius: 2rem;
   padding: 1rem 2rem;
+ 
+}
+
+.test{
+  color: #131212;
 }
 
 .about_comic .details h3{
